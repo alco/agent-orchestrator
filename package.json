@@ -1,0 +1,53 @@
+{
+  "name": "kyles-playbook",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "format": "biome format",
+    "lint": "biome lint",
+    "check": "biome check"
+  },
+  "dependencies": {
+    "@capsizecss/metrics": "^3.6.2",
+    "@electric-sql/client": "^1.5.1",
+    "@fontsource/alegreya": "^5.2.8",
+    "@fontsource/alegreya-sans": "^5.2.8",
+    "@fontsource/figtree": "^5.2.10",
+    "@fontsource/fraunces": "^5.2.9",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/lato": "^5.2.7",
+    "@fontsource/playfair-display": "^5.2.8",
+    "@fontsource/source-sans-3": "^5.2.9",
+    "@fontsource/source-serif-4": "^5.2.9",
+    "@radix-ui/themes": "^3.2.1",
+    "@tanstack/electric-db-collection": "^0.2.31",
+    "@tanstack/react-db": "^0.1.69",
+    "@tanstack/react-router": "^1.157.17",
+    "@tanstack/react-router-devtools": "^1.157.17",
+    "@tanstack/react-start": "^1.157.17",
+    "@tanstack/router-plugin": "^1.157.17",
+    "lucide-react": "^0.561.0",
+    "nitro": "3.0.1-alpha.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "vite-plugin-capsize-radix": "^0.2.4",
+    "vite-tsconfig-paths": "^6.0.2",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.4",
+    "@durable-streams/playbook": "https://pkg.pr.new/durable-streams/durable-streams/@durable-streams/playbook@219",
+    "@electric-sql/playbook": "https://pkg.pr.new/@electric-sql/playbook@3775",
+    "@tanstack/db-playbook": "https://pkg.pr.new/@tanstack/db-playbook@1206",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "typescript": "^5.7.2",
+    "vite": "^7.1.7"
+  },
+  "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
+}
