@@ -1,5 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { sql, eq } from 'drizzle-orm'
 import { z } from 'zod'
+import { db } from '../../../db/connection'
+import { agents } from '../../../db/tables'
 
 const deleteSchema = z.object({
   id: z.string().uuid(),
@@ -9,18 +12,19 @@ const serve = async ({ request }: { request: Request }) => {
   const body = await request.json()
   const { id } = deleteSchema.parse(body)
 
-  // In production, this would delete from Postgres and return the txid
-  const response = await fetch(`${process.env.DATABASE_API_URL}/agents/${id}`, {
-    method: 'DELETE',
-  }).catch(() => null)
+  const result = await db.transaction(async (tx) => {
+    // Get txid inside the transaction for optimistic update reconciliation
+    const txidResult = await tx.execute(
+      sql`SELECT pg_current_xact_id()::xid::text as txid`
+    )
+    const txid = parseInt(txidResult[0].txid as string, 10)
 
-  if (response?.ok) {
-    const data = await response.json()
-    return Response.json({ txid: data.txid })
-  }
+    await tx.delete(agents).where(eq(agents.id, id))
 
-  // Fallback: return a mock txid for development without a database
-  return Response.json({ txid: Date.now() })
+    return { txid }
+  })
+
+  return Response.json(result)
 }
 
 export const Route = createFileRoute('/api/agents/delete')({
