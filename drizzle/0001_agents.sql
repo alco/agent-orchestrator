@@ -1,5 +1,5 @@
 -- Create agents table for AI agent orchestration
-CREATE TABLE agents (
+CREATE TABLE IF NOT EXISTS agents (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   type TEXT NOT NULL CHECK (type IN ('claude', 'gpt', 'gemini', 'llama', 'custom')),
@@ -13,10 +13,7 @@ CREATE TABLE agents (
 );
 
 -- Index for filtering by status (common dashboard operation)
-CREATE INDEX agents_status_idx ON agents(status);
+CREATE INDEX IF NOT EXISTS agents_status_idx ON agents(status);
 
 -- Index for sorting by creation time
-CREATE INDEX agents_created_at_idx ON agents(created_at DESC);
-
--- Enable Electric sync on this table
-ALTER TABLE agents ENABLE ELECTRIC;
+CREATE INDEX IF NOT EXISTS agents_created_at_idx ON agents(created_at DESC);
