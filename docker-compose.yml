@@ -22,6 +22,7 @@ services:
     image: electricsql/electric:latest
     environment:
       DATABASE_URL: postgresql://postgres:password@postgres:5432/electric
+      ELECTRIC_SECRET: insecure
     ports:
       - "30000:30000"
     depends_on:
