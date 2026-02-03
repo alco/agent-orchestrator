@@ -1,43 +1,68 @@
-# Kyle's Playbook
+# Agent Orchestrator Dashboard
 
-A starter for building apps with TanStack Start, Radix UI, and capsize typography — with playbooks for **Electric**, **TanStack DB**, and **Durable Streams**.
+A dashboard for managing AI agents, built with TanStack Start, TanStack DB, and Electric.
+
+## Prerequisites
+
+- Node.js 18+
+- pnpm
+- Docker (for Postgres and Electric)
 
 ## Quick Start
 
 ```bash
-npx gitpick KyleAMathews/kpb my-app
-cd my-app
+# 1. Install dependencies
 pnpm install
+
+# 2. Start Postgres and Electric
+docker compose up -d
+
+# 3. Create environment file
+cp .env.example .env
+
+# 4. Run database migration
+psql postgresql://postgres:password@localhost:5432/electric -f drizzle/0001_agents.sql
+
+# 5. Start the app
 pnpm dev
 ```
 
-## Included Playbooks
+Open http://localhost:5173
 
-This starter comes with playbooks pre-installed. Just ask your coding agent:
+## Environment Variables
 
-**Electric** — Sync Postgres to your app
-- "Set up Electric sync for my Postgres database"
-- "Run the Electric security checklist"
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DATABASE_URL` | Postgres connection string | `postgresql://postgres:password@localhost:5432/electric` |
+| `ELECTRIC_URL` | Electric sync service URL | `http://localhost:30000` |
+| `ELECTRIC_SOURCE_ID` | Electric Cloud source ID | _(optional)_ |
+| `ELECTRIC_SECRET` | Electric Cloud secret | _(optional)_ |
 
-**TanStack DB** — Reactive client-side data
-- "Add a TanStack DB collection for the users table"
-- "Set up live queries for my todos"
-
-**Durable Streams** — Real-time state sync
-- "Set up a Durable Streams dev environment"
-- "Add presence tracking to my app"
-
-**Radix + Capsize** — Typography
-- "Switch to the Playfair theme"
-- "Show me more font theme options"
-
-## What's Included
+## Stack
 
 - **TanStack Start** - Full-stack React framework
-- **Radix UI** - Accessible components with themes
-- **Capsize typography** - Pixel-perfect text rendering
-- **Dozens of font pairings included** - Ask the agent to set one up
-- **Biome** - Fast linting and formatting
+- **TanStack DB** - Reactive client-side data with live queries
+- **Electric** - Real-time Postgres sync
+- **Radix UI** - Accessible component library
+- **Drizzle ORM** - TypeScript SQL toolkit
+
+## Project Structure
+
+```
+src/
+├── components/        # UI components (AgentCard, StatusBadge, etc.)
+├── db/
+│   ├── collections/   # TanStack DB collections
+│   ├── connection.ts  # Drizzle database connection
+│   ├── schema.ts      # Zod schemas
+│   └── tables.ts      # Drizzle table definitions
+├── hooks/             # React hooks
+├── lib/               # Utilities (Electric proxy)
+└── routes/
+    ├── api/           # API routes (Electric proxy, mutations)
+    ├── __root.tsx     # Root layout
+    └── index.tsx      # Dashboard page
+```
 
 ## License
 
